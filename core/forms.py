@@ -18,3 +18,8 @@ class ProductoForm(ModelForm):
         model = Producto
         #fields = ['nombre', 'precio','stock', 'descripcion', 'tipo']
         fields = '__all__'
+
+class RegistroUsuarioForm(UserCreationForm):
+    class Meta:
+        model = User 
+        fields = ['username','email','password1','password2']
