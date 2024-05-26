@@ -79,15 +79,24 @@ WSGI_APPLICATION = 'Obras.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
+"""
+DATABASES = {
+    'default' :{
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME':'postgres',
+        'HOST':'aws-0-sa-east-1.pooler.supabase.com',
+        'PORT':'5432',
+        'USER':'postgres.enrzrwdhdvcsxrfnybdi',
+        'PASSWORD':'Ejidate_019',
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

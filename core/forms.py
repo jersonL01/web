@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
+from django.contrib.auth.models import Group
 # EL TEMPLATE DEL FORMULARIO
 
 class ProductoForm(ModelForm):
@@ -20,6 +20,9 @@ class ProductoForm(ModelForm):
         fields = '__all__'
 
 class RegistroUsuarioForm(UserCreationForm):
+  
     class Meta:
         model = User 
         fields = ['username','email','password1','password2']
+    
+  

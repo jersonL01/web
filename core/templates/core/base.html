@@ -1,10 +1,14 @@
 {% load static %}
 
+{% block css %}
+{% endblock css %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Obras</title>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'core/images/icon.png' %}">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
@@ -40,7 +44,7 @@
 					    </div>
 					    <div class="col-md pr-4 d-flex topper align-items-center">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">youremail@email.com</span>
+						    <span class="text">Nombre: {{ user.username }}</span>
 					    </div>
 					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
 						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
@@ -52,21 +56,47 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Winkel</a>
+	      <a class="navbar-brand" href="{% url 'index' %}">Grupo Cero</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
-              <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">shop</a></li>
-	          <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
-	          <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
-	          <li class="nav-item cta cta-colored"><a href="{% url 'cart' %}" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
-
+            
+            {% if user.is_authenticated %}
+	          <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Inicio</a></li>
+         
+         
+         
+             <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">Shop</a></li>
+            
+            
+	          <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">Sobre nosotros</a></li>
+           
+	          <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contacto</a></li>       
+        
+            <li class="nav-item cta cta-colored"><a href="{% url 'cart' %}" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
+          
+            <li class="nav-item cta cta-colored"><a href="{% url 'panel' %}" class="nav-link">Panel</a></li>
+          
+          <!--INICIAR Y CERRAR SESION-->
+            {% if user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Cerrar sesión</a></li>
+             {% else %}
+            <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Iniciar sesión</a></li>
+             {% endif %}
+          <!--INICIAR Y CERRAR SESION-->
 	        </ul>
+
+          <form method="GET" action="{% url 'buscar' %}" class="mt-3">
+            <input type="text" name="q" value="{{ query }}" placeholder="Buscar por nombre">
+            <button type="submit" class="btn btn-black p">Buscar</button>
+         </form>
+   
+          {% endif %}
+
+
 	      </div>
 	    </div>
 	  </nav>
@@ -91,8 +121,8 @@
           <div class="row mb-5">
             <div class="col-md">
               <div class="ftco-footer-widget mb-4">
-                <h2 class="ftco-heading-2">Winkel</h2>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+                <h2 class="ftco-heading-2">Obras</h2>
+                <p>Revisa el catologo de nuestras obras.</p>
                 <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                   <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                   <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>

@@ -8,9 +8,12 @@ urlpatterns = [
     path('contact', contact, name="contact"),
     path('shop', shop, name="shop"),
     path('register/', register, name="register"),
-    #CRUD 
+    path('panel/', panel, name="panel"),
+    path('cuenta/', cuenta, name="cuenta"),
 
     path('agregar/', agregar, name="agregar"),
-    #path('actualizar/<id>/', actualizar, name="actualizar"),
-    #path('eliminar/<id>/', eliminar, name="eliminar"),
+    path('actualizar/<id>/', actualizar, name="actualizar"),
+    path('eliminar/<id>/', eliminar, name="eliminar"),
+
+    path('buscar/', buscar, name='buscar'),
 ]
