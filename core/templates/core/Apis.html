@@ -1,0 +1,50 @@
+{% extends 'core/base.html'%}
+{% load static %}
+
+{% block css %}
+
+{% endblock css %}
+{% block contenido %}
+
+<div class="container mt-5">
+   
+    <div class="row">
+        {% for aux in personajes %}
+        <div class="col-3">
+            <div class="personaje">
+                {% if aux.id == 1 or aux.id == 2 or aux.id == 3 or aux.id == 4 %}
+                <div class="card text-center" style="background-color:silver;">
+                    <img src="{{ aux.image }}" alt="{{ aux.name }}" height="200">
+                    <h5>Codigo: {{ aux.id }}</h5>
+                    <h5>{{ aux.name }}</h5>
+                    <p>Raza: {{ aux.species }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!--DIGIMON-->
+    <div class="row ">
+        {% for aux in digimon %}
+        <div class="col-3 mt-4">
+            <div class="personaje">
+              
+                <div class="card text-center" style="background-color:silver;">
+                    <img src="{{ aux.img }}"  height="200">
+                    <h5>{{ aux.name }}</h5>
+                    <p>level: {{ aux.level }}</p>
+                </div>
+               
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div>
+        {% include 'core/paginator.html' %}
+    </div>
+    
+</div>
+
+
+{% endblock %}

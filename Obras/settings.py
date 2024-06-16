@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
-
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'admin_confirm',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -40,11 +41,26 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'crispy_forms',
     'crispy_bootstrap4',
+    'axes',
+    'captcha',
+    'django_recaptcha',
+    'rest_framework',
     
-
+    
 ]
 
+RECAPTCHA_PUBLIC_KEY = '6LevsvUpAAAAAMnhEae3rGMEE3kiRut8To36Gb8U'
+RECAPTCHA_PRIVATE_KEY = '6LevsvUpAAAAAG-rHnaIzZDLBkwDCtHR_1euUd55'
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+AUTHENTICATION_BACKENDS = [
+    # AxesStandaloneBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
+    'axes.backends.AxesStandaloneBackend',
+
+    # Django ModelBackend is the default authentication backend.
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +70,23 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
+    
 ]
+
+
+#CONFRIGURACIONS DEL AXES
+
+AXES_FAILURE_LIMIT = 3 #NUMERO DE INTENTOS FALLIDOS
+AXES_COOLOFF_TIME = timedelta(minutes=5)#TIEMPO DE ESPERA ANTES DE PERMITIR INTENTO
+#AXES_LOCKOUT_UL = '' #URL A LA QUE SE REDIRIGE CUANDO LA CUENTA SE BLOQUEA
+AXES_RESET_ON_SUCESS = True #REESTABLECER EL CONTADOR DE INTENTOS FALLIDOS CUANDO SE LOGEA
+
+
+
+
+
+
 
 ROOT_URLCONF = 'Obras.urls'
 
@@ -92,8 +124,8 @@ DATABASES = {
         'ENGINE':'django.db.backends.postgresql_psycopg2',
         'NAME':'postgres',
         'HOST':'aws-0-sa-east-1.pooler.supabase.com',
-        'PORT':'5432',
-        'USER':'postgres.enrzrwdhdvcsxrfnybdi',
+        'PORT':'6543',
+        'USER':'postgres.vklmwazltrdzgjnwaykq',
         'PASSWORD':'Ejidate_019',
     }
 }

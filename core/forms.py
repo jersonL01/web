@@ -4,10 +4,15 @@ from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
+from captcha.fields import CaptchaField
+from django_recaptcha.fields import ReCaptchaField
 # EL TEMPLATE DEL FORMULARIO
 
 class ProductoForm(ModelForm):
-
+    
+    #captcha = CaptchaField()
+    captcha = ReCaptchaField()
+    
     nombre = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Ingrese Nombre"}))
     precio = forms.IntegerField(min_value=0,widget=forms.NumberInput(attrs={"placeholder": "Ingrese Precio"}))
     stock  = forms.IntegerField(min_value=0,widget=forms.NumberInput(attrs={"placeholder": "Ingrese Stock"}))

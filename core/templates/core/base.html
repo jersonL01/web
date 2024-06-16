@@ -39,16 +39,10 @@
 	    		<div class="col-lg-12 d-block">
 		    		<div class="row d-flex">
 		    			<div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-						    <span class="text">+ 1235 2355 98</span>
+					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><i class="fa-regular fa-user"></i></span></div>
+						    <span class="text">{{ user.username }}</span>
 					    </div>
-					    <div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">Nombre: {{ user.username }}</span>
-					    </div>
-					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
-					    </div>
+					   
 				    </div>
 			    </div>
 		    </div>
@@ -64,37 +58,38 @@
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
             
-            {% if user.is_authenticated %}
-	          <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Inicio</a></li>
-         
-         
-         
-             <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">Shop</a></li>
-            
-            
-	          <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">Sobre nosotros</a></li>
-           
-	          <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contacto</a></li>       
-        
-            <li class="nav-item cta cta-colored"><a href="{% url 'cart' %}" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
-          
-            <li class="nav-item cta cta-colored"><a href="{% url 'panel' %}" class="nav-link">Panel</a></li>
-          
-          <!--INICIAR Y CERRAR SESION-->
-            {% if user.is_authenticated %}
-            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Cerrar sesión</a></li>
-             {% else %}
-            <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Iniciar sesión</a></li>
-             {% endif %}
-          <!--INICIAR Y CERRAR SESION-->
-	        </ul>
+          {% if user.is_authenticated %}
+            {% if user.groups.first.name == 'cliente' %}
 
-          <form method="GET" action="{% url 'buscar' %}" class="mt-3">
-            <input type="text" name="q" value="{{ query }}" placeholder="Buscar por nombre">
-            <button type="submit" class="btn btn-black p">Buscar</button>
-         </form>
-   
+            <li class="nav-item cta cta-colored"><a href="{% url 'panel' %}" class="nav-link">Panel</a></li>
+            <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">Shop</a></li>
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Cerrar sesión</a></li>
+           
+
+            
+            {% else %}
+            <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">Shop</a></li>
+            <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">Sobre nosotros</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contacto</a></li>        
+            <li class="nav-item cta cta-colored"><a href="{% url 'cart' %}" class="nav-link" ><i class="fa-solid fa-cart-shopping "></i></a></li>
+            <form method="GET" action="{% url 'buscar' %}" class="mt-3">
+              <input placeholder="Buscar..." class="input" name="q" type="text"  value="{{ query }}">
+            </form>
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Cerrar sesión</a></li>
+            {% endif %}
+          {% else %}
+          <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">Shop</a></li>
+          <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Iniciar sesión</a></li>
+          <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">Sobre nosotros</a></li>
+          <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contacto</a></li>   
+          
+	        </ul>
           {% endif %}
+        
+   
+        
 
 
 	      </div>
@@ -205,5 +200,28 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="{% static 'core/js/google-map.js' %}"></script>
     <script src="{% static 'core/js/main.js' %}"></script>
+    
+    <script src="https://kit.fontawesome.com/7043d27387.js" crossorigin="anonymous"></script>
+    <style>
+      .input {
+            background-color: #212121;
+            max-width: 190px;
+            height: 40px;
+            padding: 10px;
+            /* text-align: center; */
+            border: 2px solid white;
+            border-radius: 5px;
+            /* box-shadow: 3px 3px 2px rgb(249, 255, 85); */
+          }
+
+          .input:focus {
+            color: rgb(0, 255, 255);
+            background-color: #212121;
+            outline-color: rgb(0, 255, 255);
+            box-shadow: -3px -3px 15px rgb(0, 255, 255);
+            transition: .1s;
+            transition-property: box-shadow;
+          }
+    </style>
     </body>
   </html>
