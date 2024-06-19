@@ -87,7 +87,9 @@
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
+							
     						<span>${{ total_final }}</span>
+						
     					</p>
     				</div>
     				
@@ -98,8 +100,15 @@
 		</section>
 
 
-		<script src="https://www.paypalobjects.com/api/checkout.js"></script>
-		<script>
+		
+		
+{% endblock %}
+
+{% block js %}
+	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+	<script>
+
+		 
 		paypal.Button.render({
 		// Configure environment
 		env: 'sandbox',
@@ -108,10 +117,10 @@
 		production: 'demo_production_client_id'
 		},
 		// Customize button (optional)
-		locale: 'en_US',
+		locale: 'en_CL',
 		style: {
-		size: 'medium',
-		color: 'white',
+		size: 'small',
+		color: 'gold',
 		shape: 'pill',
 		},
 		
@@ -122,8 +131,8 @@
 		payment: function (data, actions) {
 		return actions.payment.create({
 		transactions: [{
-		amount: {
-		total: '10.00',
+		amount: {		
+		value: '{{ total_final }}',
 		currency: 'USD'
 		}
 		}]
@@ -140,5 +149,4 @@
 		
 		</script>
 		
-		
-{% endblock %}
+{% endblock js %}

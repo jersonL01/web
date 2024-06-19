@@ -25,8 +25,9 @@
 	
 						{% for aux in listaProductos %}
 						<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
-							<div class="product">
-								<img class="img-fluid" src="{{ aux.imagen.url }}" alt="{{ aux.nombre }}" height="200" width="300">
+							<div class="">
+								<a href=""><img class="img" src="{{ aux.imagen.url }}" alt="{{ aux.nombre }}" height="180" width="280"></a>
+								
 								<div class="text py-3 px-3">
 									<div class="d-flex justify-content-between align-items-center">
 										<h3 class="text-center"><a href="#"><strong>{{ aux.nombre }}</strong></a></h3>

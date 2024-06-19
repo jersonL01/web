@@ -82,6 +82,8 @@ def about(request):
 @login_required
 def contact(request):
     return render(request, 'core/contact.html')
+
+
 @login_required
 def cart(request):
    
@@ -105,6 +107,65 @@ def cart(request):
               'total_final' : total_final,}
 
     return render(request, 'core/cart.html', data)
+
+
+
+def procesar_compra(usuario):
+    # Obtener el usuario que está realizando la compra
+    usuario = Usuario.objects.get(codigo_usuario=usuario.pk)
+
+    # Obtener el carrito del usuario
+    carrito = Carrito.objects.filter(usuario_producto=usuario.nombre_usuario)
+
+    if not carrito.exists():
+        # Si el carrito está vacío, retornar False o lanzar una excepción según la lógica de tu aplicación
+        return False
+
+    # Obtener el valor del dólar desde la API de Mindicador
+    respuesta = requests.get('https://mindicador.cl/api/dolar').json()
+    valor_usd = respuesta['serie'][0]['valor']
+
+    # Calcular el total del carrito y el total del IVA
+    total_precio = 0
+    total_iva = 0
+    for item in carrito:
+        total_precio += item.total
+        total_iva += round(item.total * 0.19)  # Calcular el IVA del 19%
+
+    # Calcular el total final en USD
+    total_final = round(float(total_precio + total_iva) / valor_usd, 2)
+
+    # Crear una nueva compra
+    nueva_compra = OrdenCompra.objects.create(usuario=usuario, total_carrito=total_final)
+
+    # Crear detalles de compra asociados
+    for item in carrito:
+        DetalleCompra.objects.create(
+            compra=nueva_compra,
+            producto=item.nombre_producto,
+            cantidad=item.cantidad,
+            imagen_producto=item.imagen
+        )
+
+    # Limpiar el carrito (eliminar todos los elementos)
+    carrito.delete()
+
+    # Retornar True o algún indicador de que la compra fue procesada con éxito
+    return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def cuenta(request):
     return render(request, 'core/crud/cuenta.html')
@@ -299,4 +360,5 @@ def disminuir_cantidad(request, codigo_producto):
     else:
         eliminar_carrito(request, codigo_producto)  
     return redirect('cart')
+
 

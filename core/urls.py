@@ -20,6 +20,7 @@ urlpatterns = [
     path('register/', register, name="register"),
     path('panel/', panel, name="panel"),
     path('cuenta/', cuenta, name="cuenta"),
+   
 
     path('agregar/', agregar, name="agregar"),
     path('actualizar/<codigo_producto>/', actualizar, name="actualizar"),

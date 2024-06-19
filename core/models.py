@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 class TipoObras(models.Model):
@@ -19,7 +20,7 @@ class Producto(models.Model):
     stock = models.IntegerField()
     descripcion = models.CharField(max_length=100)
     historia = models.CharField(max_length=100)
-    imagen = models.ImageField(null=True, blank=True)
+    imagen = CloudinaryField('imagen')
     tecnica = models.ForeignKey(TipoObras, on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
     update_at = models.DateField(auto_now=True)
@@ -33,7 +34,7 @@ class Carrito(models.Model):
     precio_producto = models.IntegerField()
     cantidad = models.IntegerField()
     total = models.IntegerField()
-    imagen = models.ImageField(upload_to= "carrito", null=False)
+    imagen = CloudinaryField('imagen')
     usuario_producto = models.CharField(max_length=100)
 
     def __str__(self):
@@ -60,4 +61,20 @@ class Usuario(models.Model):
 
     def __str__(self):
         return self.nombre_usuario
-    
+   
+
+class OrdenCompra(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    fecha_compra = models.DateTimeField(auto_now_add=True)
+    total_carrito = models.IntegerField()  
+    def __str__(self):
+        return f"Compra de {self.usuario.nombre_usuario} el {self.fecha_compra}"
+
+class DetalleCompra(models.Model):
+    compra = models.ForeignKey(OrdenCompra, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField()
+    imagen_producto = models.ImageField(upload_to='detalles_compra', null=True)  
+
+    def __str__(self):
+        return f"{self.cantidad} de {self.producto.nombre} en la compra de {self.compra.fecha_compra}"

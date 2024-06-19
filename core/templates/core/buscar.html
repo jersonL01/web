@@ -5,21 +5,22 @@
 
 {% endblock css %}
 {% block contenido %}
-<div class="container">
+<div class="container align-items-center">
     <h3 class="t1 text-center">Resultados de la búsqueda:</h3>
     <div class="row mt-5 mb-5">
         {% for producto in productos %}
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-4 align-items-center">
                 <div class="card custom-card">
-                    <img src="{{ producto.imagen.url }}" class="card-img-top custom-img" alt="{{ producto.nombre }}">
+                    <img src="{{ producto.imagen.url }}" class="" height="190" alt="">
                     <div class="card-body custom-card-body">
                         <h6 class="card-title custom-card-title"><strong>Nombre: </strong>{{ producto.nombre }}</h6>
                         <p class="card-text custom-card-text"><strong>Descripción: </strong>{{ producto.descripcion }}</p>
                         <p class="card-text custom-card-text"><strong>Precio: </strong> ${{ producto.precio }}</p>
+                        <p class="card-text custom-card-text"><strong>Historia: </strong> {{ producto.historia }}</p>
                         <p class="card-text custom-card-text"><strong>Técnica:</strong> {{ producto.tecnica.tecnica }}</p>
                         <p class="card-text custom-card-text"><strong>Stock:</strong> {{ producto.stock }}</p>
                     </div>
-                    <button type="button" class="btn btn-outline-dark custom-btn">Agregar al carrito</button>
+                  
                 </div>
             </div>
         {% empty %}
