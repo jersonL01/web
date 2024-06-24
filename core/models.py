@@ -1,6 +1,7 @@
 
 from datetime import datetime
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -19,7 +20,7 @@ class Producto(models.Model):
     stock = models.IntegerField()
     descripcion = models.CharField(max_length=100)
     historia = models.CharField(max_length=100)
-    imagen = models.ImageField(null=True, blank=True)
+    imagen = CloudinaryField('imagen')
     tecnica = models.ForeignKey(TipoObras, on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
     update_at = models.DateField(auto_now=True)

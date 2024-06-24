@@ -144,11 +144,7 @@ def shopCompra(request):
     data = {
         'listaProductos' : ProductoAll,
        
-
     }
-
-
-
 
     if request.method == 'POST':
         codigo_producto = request.POST.get('codigo_producto')

@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +30,9 @@ SECRET_KEY = 'django-insecure-^j4o8m-@sqo@!g-ty7^hw_cm7_fy(czk08z-sg5p43*2*julo9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#False :PARA EL DEBUG
+
+ALLOWED_HOSTS = ['.vercel.app','127.0.0.1']
 
 
 # Application definition
@@ -162,6 +169,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+#CONFIGURACION DE CLOUDINARY
+
+
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+#python manage.py collectstatic --upload.unhashed-files
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dd3clgufy',
+    'API_KEY': '516865822531758',  
+    'API_SECRET' :'IhpvaOAByD6D1ClTu-hqKm3NQMc'
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

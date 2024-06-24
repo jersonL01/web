@@ -2,7 +2,7 @@ django == 4.0.4
 pillow
 django-crispy-forms
 crispy-bootstrap4
-psycopg2
+psycopg2-binary
 django-admin-confirm
 django-axes
 django-recaptcha

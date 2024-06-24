@@ -46,7 +46,7 @@
                 <a href="{% url 'actualizar' aux.codigo_producto %}" class="btn btn-black  btn-block">Actualizar</a>
             </div>
             <div class="col-2">
-                <a href="{% url 'eliminar' aux.codigo_producto %}" class="btn btn-black  btn-block">Eliminar</a>
+                <a onclick="eliminar({{ aux.codigo_producto }})" class="btn btn-black  btn-block">Eliminar</a>
             </div>
         </div>
         {% endfor %}
@@ -58,8 +58,7 @@
     </main>
 </div>
 {% endblock %}
-
-
 {% block js %}
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src=" {% static 'core/js/mensaje.js' %}"></script>
 {% endblock js %}
