@@ -43,7 +43,7 @@
 						    <span class="text">+ 1235 2355 98</span>
 					    </div>
 					    <div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><i class="fa-solid fa-user"></i></span></div>
 						    <span class="text">Nombre: {{ user.username }}</span>
 					    </div>
 					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
@@ -62,41 +62,44 @@
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-            
-            {% if user.is_authenticated %}
-	          <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Inicio</a></li>
-         
-         
-         
-             <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">Shop</a></li>
-            
-            
-	          <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">Sobre nosotros</a></li>
-           
-	          <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contacto</a></li>       
-        
-            <li class="nav-item cta cta-colored"><a href="{% url 'cart' %}" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
-          
-            <li class="nav-item cta cta-colored"><a href="{% url 'panel' %}" class="nav-link">Panel</a></li>
-          
-          <!--INICIAR Y CERRAR SESION-->
-            {% if user.is_authenticated %}
-            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Cerrar sesión</a></li>
-             {% else %}
-            <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Iniciar sesión</a></li>
-             {% endif %}
-          <!--INICIAR Y CERRAR SESION-->
-	        </ul>
+              <ul class="navbar-nav ml-auto">
+                              
+              {% if user.is_authenticated %}
+                  <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Inicio</a></li>
+                  <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">Sobre nosotros</a></li>
+                  <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contacto</a></li>
 
-          <form method="GET" action="{% url 'buscar' %}" class="mt-3">
-            <input type="text" name="q" value="{{ query }}" placeholder="Buscar por nombre">
-            <button type="submit" class="btn btn-black p">Buscar</button>
-         </form>
-   
-          {% endif %}
+                  {% if user.groups.first.name == "cliente" %}
+                      <li class="nav-item"><a href="{% url 'shopCompra' %}" class="nav-link">Productos</a></li>
+                      <li class="nav-item cta cta-colored"><a href="{% url 'cart' %}" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
+                  {% endif %}
 
+                  {% if user.groups.first.name == "admin" %}
+                      <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">Shop</a></li>
+                      <li class="nav-item cta cta-colored"><a href="{% url 'panel' %}" class="nav-link">Panel</a></li>
+                  {% endif %}
 
+                     <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Cerrar sesión</a></li>
+                 {% else %}
+                    <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contacto</a></li>
+                    <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">Sobre nosotros</a></li>
+                    <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">Shop</a></li>
+                    <li class="nav-item dropdown mx-2">
+                      <a class="nav-link " href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa-solid fa-user"></i>
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <li><a class="dropdown-item" href="{% url 'login' %}">Iniciar sesión</a></li>
+                          <li><a class="dropdown-item" href="{% url 'register' %}">Registrarse</a></li>
+                      </ul>
+                    </li>
+              {% endif %}
+              </ul>
+            
+            <form method="GET" action="{% url 'buscar' %}" class="mt-3">
+                <input placeholder="Buscar..." class="input" name="q" type="text" value="{{ query }}">
+            </form>
 	      </div>
 	    </div>
 	  </nav>
@@ -205,5 +208,9 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="{% static 'core/js/google-map.js' %}"></script>
     <script src="{% static 'core/js/main.js' %}"></script>
+    
+    <script src="https://kit.fontawesome.com/7043d27387.js" crossorigin="anonymous"></script>
     </body>
   </html>
+  {% block js %}
+  {% endblock js %}

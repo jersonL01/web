@@ -3,7 +3,7 @@
 
 {% block contenido %}
 
-    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+    <div class="hero-wrap hero-bread" style="background-color: cadetblue;">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
@@ -22,9 +22,9 @@
 
 						{% for aux in listaProductos %}
 		    			<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
-		    				<div class="product">
+		    				<div class="">
 								
-								<img class="img-fluid" src="{{ aux.imagen.url }}" alt="">
+								<img class="img" src="{{ aux.imagen.url }}" alt="{{ aux.nombre }}"height="180" width="280">
 		    						
 		    					<div class="text py-3 px-3">
 									
@@ -34,18 +34,12 @@
 				    						<p class="price">$ {{ aux.precio }}</p>
 				    					</div>
 				    					<div class="rating">
-			    							<p class="text-right">
-			    								stock:	{{ aux.stock }}
+			    							<p class="text-right mx-5">
+			    								stock: {{ aux.stock }}
 			    							</p>
 			    						</div>
 			    					</div>
 
-									
-
-			    					<p class="bottom-area d-flex px-3">
-		    							<a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-		    							<a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
-		    						</p>
 		    					</div>
 		    				</div>
 		    			</div>

@@ -15,6 +15,8 @@
             <ul>
                 <li><a href="{% url 'agregar' %}">Agregar</a></li>
                 <li><a href="{% url 'cuenta' %}">Mi cuenta</a></li>
+                <li><a href="{% url 'api_proyecto' %}">Api Productos</a></li>
+                <li><a href="{% url 'universo_api' %}">Api Externa</a></li>
                 <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
             </ul>
         </nav>
@@ -41,10 +43,10 @@
             </div>
            
             <div class="col-2">
-                <a href="{% url 'actualizar' aux.id %}" class="btn btn-black  btn-block">Actualizar</a>
+                <a href="{% url 'actualizar' aux.codigo_producto %}" class="btn btn-black  btn-block">Actualizar</a>
             </div>
             <div class="col-2">
-                <a href="{% url 'eliminar' aux.id %}" class="btn btn-black  btn-block">Eliminar</a>
+                <a href="{% url 'eliminar' aux.codigo_producto %}" class="btn btn-black  btn-block">Eliminar</a>
             </div>
         </div>
         {% endfor %}

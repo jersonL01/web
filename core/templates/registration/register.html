@@ -5,7 +5,6 @@
 {% endblock %}
 {% block contenido %}
 {% load crispy_forms_tags %}
-
 <section class="vh-90 mb-5">
   <div class="container py-5 h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
@@ -15,11 +14,18 @@
       </div>
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
         <h2>Registrarse</h2>
-        <form method="POST" >
+
+        
+        <form method="POST">
             {% csrf_token %}
-            {{ form| crispy }}
-         
-            <input type="submit" class="btn btn-black mb-5" value="Registrarse">
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field|as_crispy_field }}
+                    <!-- Aquí se renderiza cada campo individualmente -->
+                </div>
+            {% endfor %}
+            <button type="submit"  class="btn btn-primary btn-lg btn-block mb-3 mt-5">Registrarse</button>
+
         </form>
       </div>
     </div>
